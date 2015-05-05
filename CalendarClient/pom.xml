@@ -11,5 +11,13 @@
 
     <artifactId>CalendarClient</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.diosoft</groupId>
+            <artifactId>CalendarService</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+
 
 </project>
