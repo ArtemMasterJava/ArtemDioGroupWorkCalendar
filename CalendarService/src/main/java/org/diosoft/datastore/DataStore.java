@@ -2,6 +2,7 @@ package org.diosoft.datastore;
 
 import org.diosoft.model.Event;
 
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.UUID;
 
@@ -15,4 +16,5 @@ public interface DataStore {
 
     Event removeEvent(UUID id);
 
+    List<Event> getEventsByDate(GregorianCalendar date);
 }

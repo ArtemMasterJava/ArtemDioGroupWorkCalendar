@@ -41,4 +41,16 @@ public class MapDataStore implements DataStore {
     Event getEventForTest(UUID id) {
         return storage.get(id);
     }
+
+    @Override
+    public List<Event> getEventsByDate(GregorianCalendar date) {
+        List<Event> allEvents = this.getAllEvents();
+        List<Event> resultList = new ArrayList<Event>();
+        for(Event temp : allEvents) {
+            if (date.equals(temp.getStartDate())){
+                resultList.add(temp);
+            }
+        }
+        return resultList;
+    }
 }
