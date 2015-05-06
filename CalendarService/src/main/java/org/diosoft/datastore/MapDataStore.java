@@ -33,4 +33,12 @@ public class MapDataStore implements DataStore {
         storage.remove(id);
         return event;
     }
+
+    void addEventForTest(Event event) {
+        storage.put(event.getId(), event);
+    }
+
+    Event getEventForTest(UUID id) {
+        return storage.get(id);
+    }
 }

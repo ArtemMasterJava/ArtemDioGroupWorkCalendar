@@ -123,6 +123,13 @@ public class CalendarServiceImplTest {
     }
 
     @Test
+    public void test() {
+
+
+        //List<Calendar[]> checkAvailability(Person… persons)
+    }
+
+    @Test
     public void mockTestExample() {
 
         // initialize variable inputs

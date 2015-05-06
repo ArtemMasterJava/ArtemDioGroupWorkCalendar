@@ -28,7 +28,7 @@
         </dependency>
 
         <dependency>
-            <groupId>repository.junit</groupId>
+            <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.11</version>
         </dependency>
