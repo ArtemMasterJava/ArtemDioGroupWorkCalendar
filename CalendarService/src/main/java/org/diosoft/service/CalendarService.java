@@ -4,6 +4,7 @@ import org.diosoft.model.Event;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.UUID;
@@ -19,4 +20,5 @@ public interface CalendarService extends Remote {
 
     Event removeEvent(UUID id) throws RemoteException;
 
+    List<Calendar[]> checkAvailability(String[] attendees) throws RemoteException;
 }

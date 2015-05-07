@@ -123,10 +123,30 @@ public class CalendarServiceImplTest {
     }
 
     @Test
-    public void test() {
-
+    public void testCheckAvailability() throws Exception {
 
         //List<Calendar[]> checkAvailability(Person… persons)
+
+        // initialize variable inputs
+        List<Calendar[]> expectedValue = new ArrayList<Calendar[]>();
+        String[] attendees = {"peters@gmail.com", "snake@yahoo.com"};
+
+        // initialize mocks
+        DataStore dataStore = mock(DataStore.class);
+
+
+        // initialize class to test
+        CalendarService service = new CalendarServiceImpl(dataStore);
+        when(service.checkAvailability(attendees)).thenReturn(expectedValue);
+
+        // invoke method on class to test
+        List<Calendar[]> returnedValue = service.checkAvailability(attendees);
+
+        // assert return value
+        assertEquals(expectedValue, returnedValue);
+
+        // verify mock expectations
+        verify(dataStore).getAllEvents();
     }
 
     @Test

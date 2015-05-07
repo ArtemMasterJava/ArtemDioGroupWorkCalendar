@@ -34,6 +34,11 @@ public class MapDataStore implements DataStore {
         return event;
     }
 
+    //@Override
+    public List<Calendar[]> checkAvailability(String[] attendees) {
+        return null;
+    }
+
     void addEventForTest(Event event) {
         storage.put(event.getId(), event);
     }

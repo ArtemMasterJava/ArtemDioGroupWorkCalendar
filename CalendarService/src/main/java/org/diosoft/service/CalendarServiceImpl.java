@@ -4,10 +4,7 @@ import org.diosoft.datastore.DataStore;
 import org.diosoft.model.Event;
 
 import java.rmi.RemoteException;
-import java.util.Arrays;
-import java.util.GregorianCalendar;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class CalendarServiceImpl implements CalendarService {
 
@@ -43,6 +40,11 @@ public class CalendarServiceImpl implements CalendarService {
     @Override
     public Event removeEvent(UUID id) throws RemoteException {
         return dataStore.removeEvent(id);
+    }
+
+    @Override
+    public List<Calendar[]> checkAvailability(String[] attendees) {
+        return null;
     }
 
     public UUID makeId() {
