@@ -21,4 +21,5 @@ public interface CalendarService extends Remote {
     Event removeEvent(UUID id) throws RemoteException;
 
     List<Calendar[]> checkAvailability(String[] attendees) throws RemoteException;
+    List<Event> getEventsByDate(GregorianCalendar date) throws RemoteException;
 }

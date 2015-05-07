@@ -50,4 +50,9 @@ public class CalendarServiceImpl implements CalendarService {
     public UUID makeId() {
         return UUID.randomUUID();
     }
+
+    @Override
+    public List<Event> getEventsByDate(GregorianCalendar date) {
+        return dataStore.getEventsByDate(date);
+    }
 }

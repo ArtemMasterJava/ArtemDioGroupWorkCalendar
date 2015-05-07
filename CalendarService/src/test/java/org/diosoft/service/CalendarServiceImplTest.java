@@ -64,6 +64,21 @@ public class CalendarServiceImplTest {
     }
 
     @Test
+    public void testGetEventsByDate() throws Exception{
+        GregorianCalendar date = new GregorianCalendar(2015, Calendar.MAY, 12, 10, 0);
+        List<Event> expectedValue = new ArrayList<Event>();
+
+        DataStore dataStore = mock(DataStore.class);
+        when(dataStore.getEventsByDate(date)).thenReturn(expectedValue);
+
+        CalendarService service = new CalendarServiceImpl(dataStore);
+        List<Event> returnedValue = service.getEventsByDate(date);
+
+        assertEquals(expectedValue,returnedValue);
+        verify(dataStore).getEventsByDate(date);
+    }
+
+    @Test
     public void testGetAllEvents() throws Exception {
 
         // initialize variable inputs
