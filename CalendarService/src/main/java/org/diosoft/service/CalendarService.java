@@ -17,6 +17,9 @@ public interface CalendarService extends Remote {
 
     Event getEvent(UUID id) throws RemoteException;
 
+    void addAllDayEvent(String title, String description, GregorianCalendar date,
+                         List<Person> attendees) throws RemoteException;
+
     List<Event> getAllEvents() throws RemoteException;
 
     Event removeEvent(UUID id) throws RemoteException;
