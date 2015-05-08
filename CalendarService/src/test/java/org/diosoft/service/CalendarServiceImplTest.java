@@ -3,6 +3,7 @@ package org.diosoft.service;
 import org.diosoft.datastore.DataStore;
 import org.diosoft.datastore.MapDataStore;
 import org.diosoft.model.Event;
+import org.diosoft.model.Person;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 
@@ -22,8 +23,10 @@ public class CalendarServiceImplTest {
         String description = "Some Description";
         GregorianCalendar startDate = new GregorianCalendar(2015, Calendar.MAY, 12, 10, 0);
         GregorianCalendar endDate = new GregorianCalendar(2015, Calendar.MAY, 12, 12, 0);
-        String[] attendees = {"peters@gmail.com", "snake@yahoo.com"};
-
+        List<Person> attendees = Arrays.asList(
+                new Person.Builder().firstName("John").lastName("Peters").email("peters@gmail.com").build(),
+                new Person.Builder().firstName("Mister").lastName("Snake").email("snake@yahoo.com").build()
+        );
         Event event = new Event.Builder().build();
         // initialize mocks
         DataStore dataStore = mock(DataStore.class);
@@ -144,11 +147,13 @@ public class CalendarServiceImplTest {
 
         // initialize variable inputs
         List<Calendar[]> expectedValue = new ArrayList<Calendar[]>();
-        String[] attendees = {"peters@gmail.com", "snake@yahoo.com"};
+        List<Person> attendees = Arrays.asList(
+                new Person.Builder().firstName("John").lastName("Peters").email("peters@gmail.com").build(),
+                new Person.Builder().firstName("Mister").lastName("Snake").email("snake@yahoo.com").build()
+        );
 
         // initialize mocks
         DataStore dataStore = mock(DataStore.class);
-
 
         // initialize class to test
         CalendarService service = new CalendarServiceImpl(dataStore);

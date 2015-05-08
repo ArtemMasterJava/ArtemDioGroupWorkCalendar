@@ -1,6 +1,7 @@
 package org.diosoft.service;
 
 import org.diosoft.model.Event;
+import org.diosoft.model.Person;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -12,7 +13,7 @@ import java.util.UUID;
 public interface CalendarService extends Remote {
 
     void addEvent (String title, String description, GregorianCalendar startDate, GregorianCalendar endDate,
-                   String[] attendees) throws RemoteException;
+                   List<Person> attendees) throws RemoteException;
 
     Event getEvent(UUID id) throws RemoteException;
 
@@ -20,7 +21,7 @@ public interface CalendarService extends Remote {
 
     Event removeEvent(UUID id) throws RemoteException;
 
-    List<Calendar[]> checkAvailability(String[] attendees) throws RemoteException;
-    List<Event> getEventsByDate(GregorianCalendar date) throws RemoteException;
+    List<Calendar[]> checkAvailability(List<Person> attendees) throws RemoteException;
+
     List<Event> getEventsByDate(GregorianCalendar date) throws RemoteException;
 }

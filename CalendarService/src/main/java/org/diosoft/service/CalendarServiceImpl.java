@@ -2,6 +2,7 @@ package org.diosoft.service;
 
 import org.diosoft.datastore.DataStore;
 import org.diosoft.model.Event;
+import org.diosoft.model.Person;
 
 import java.rmi.RemoteException;
 import java.util.*;
@@ -16,14 +17,14 @@ public class CalendarServiceImpl implements CalendarService {
 
     @Override
     public void addEvent(String title, String description, GregorianCalendar startDate, GregorianCalendar endDate,
-                         String[] attendees) throws RemoteException {
+                         List<Person> attendees) throws RemoteException {
         dataStore.addEvent(new Event.Builder()
                 .id(makeId())
                 .title(title)
                 .description(description)
                 .startDate(startDate)
                 .endDate(endDate)
-                .attendees(Arrays.asList(attendees))
+                .attendees(attendees)
                 .build());
     }
 
@@ -43,7 +44,7 @@ public class CalendarServiceImpl implements CalendarService {
     }
 
     @Override
-    public List<Calendar[]> checkAvailability(String[] attendees) {
+    public List<Calendar[]> checkAvailability(List<Person> attendees) {
         return null;
     }
 
@@ -55,4 +56,6 @@ public class CalendarServiceImpl implements CalendarService {
     public List<Event> getEventsByDate(GregorianCalendar date) {
         return dataStore.getEventsByDate(date);
     }
+
+
 }

@@ -1,6 +1,7 @@
 package org.diosoft.datastore;
 
 import org.diosoft.model.Event;
+import org.diosoft.model.Person;
 import org.junit.Test;
 
 import java.util.*;
@@ -17,14 +18,17 @@ public class MapDataStoreTest {
         UUID id = UUID.randomUUID();
         GregorianCalendar startDate = new GregorianCalendar(2015, Calendar.APRIL, 30, 10, 0);
         GregorianCalendar endDate = new GregorianCalendar(2015, Calendar.APRIL, 30, 12, 30);
-        String[] attendees = {"test@gmail.com", "mail@ukr.net"};
+        List<Person> attendees = Arrays.asList(
+                new Person.Builder().firstName("John").lastName("Peters").email("peters@gmail.com").build(),
+                new Person.Builder().firstName("Mister").lastName("Snake").email("snake@yahoo.com").build()
+        );
         Event expectedValue = new Event.Builder()
                 .title(title)
                 .description(description)
                 .id(id)
                 .startDate(startDate)
                 .endDate(endDate)
-                .attendees(Arrays.asList(attendees))
+                .attendees(attendees)
                 .build();
 
         MapDataStore testClass = new MapDataStore();
@@ -43,14 +47,17 @@ public class MapDataStoreTest {
         UUID id = UUID.randomUUID();
         GregorianCalendar startDate = new GregorianCalendar(2015, Calendar.APRIL, 30, 10, 0);
         GregorianCalendar endDate = new GregorianCalendar(2015, Calendar.APRIL, 30, 12, 30);
-        String[] attendees = {"test@gmail.com", "mail@ukr.net"};
+        List<Person> attendees = Arrays.asList(
+                new Person.Builder().firstName("John").lastName("Peters").email("peters@gmail.com").build(),
+                new Person.Builder().firstName("Mister").lastName("Snake").email("snake@yahoo.com").build()
+        );
         Event expectedValue = new Event.Builder()
                 .title(title)
                 .description(description)
                 .id(id)
                 .startDate(startDate)
                 .endDate(endDate)
-                .attendees(Arrays.asList(attendees))
+                .attendees(attendees)
                 .build();
 
         MapDataStore testClass = new MapDataStore();
@@ -94,14 +101,17 @@ public class MapDataStoreTest {
         UUID id = UUID.randomUUID();
         GregorianCalendar startDate = new GregorianCalendar(2015, Calendar.APRIL, 30, 10, 0);
         GregorianCalendar endDate = new GregorianCalendar(2015, Calendar.APRIL, 30, 12, 30);
-        String[] attendees = {"test@gmail.com", "mail@ukr.net"};
+        List<Person> attendees = Arrays.asList(
+                new Person.Builder().firstName("John").lastName("Peters").email("peters@gmail.com").build(),
+                new Person.Builder().firstName("Mister").lastName("Snake").email("snake@yahoo.com").build()
+        );
         Event expectedValue = new Event.Builder()
                 .title(title)
                 .description(description)
                 .id(id)
                 .startDate(startDate)
                 .endDate(endDate)
-                .attendees(Arrays.asList(attendees))
+                .attendees(attendees)
                 .build();
 
         MapDataStore testClass = new MapDataStore();
