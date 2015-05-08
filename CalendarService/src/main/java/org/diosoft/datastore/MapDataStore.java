@@ -1,7 +1,12 @@
 package org.diosoft.datastore;
 
+import org.diosoft.adapters.EventAdapter;
 import org.diosoft.model.Event;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import java.io.File;
 import java.util.*;
 
 public class MapDataStore implements DataStore {
@@ -15,6 +20,7 @@ public class MapDataStore implements DataStore {
     @Override
     public void addEvent(Event event) {
         storage.put(event.getId(), event);
+        writeEvent(event);
     }
 
     @Override
@@ -57,5 +63,20 @@ public class MapDataStore implements DataStore {
             }
         }
         return resultList;
+    }
+
+    private void writeEvent(Event event){
+
+        JAXBContext jaxbContext = null;
+
+        EventAdapter eventAdapter = new EventAdapter(event);
+        try {
+            jaxbContext = JAXBContext.newInstance(EventAdapter.class);
+            Marshaller m = jaxbContext.createMarshaller();
+            m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+            m.marshal(eventAdapter, new File("./xml-data/"+ event.getTitle() +".xml"));
+        } catch (JAXBException e) {
+            e.printStackTrace();
+        }
     }
 }
