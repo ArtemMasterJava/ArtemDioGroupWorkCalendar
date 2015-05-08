@@ -8,12 +8,12 @@ import java.util.List;
 import java.util.UUID;
 
 public class Event implements Serializable {
-    private final String title;
-    private final String description;
-    private final UUID id;
-    private final List<Person> attendees;
-    private final GregorianCalendar startDate;
-    private final GregorianCalendar endDate;
+    final private String title;
+    final private String description;
+    final private UUID id;
+    final private List<Person> attendees;
+    final private GregorianCalendar startDate;
+    final private GregorianCalendar endDate;
 
     private Event(Builder builder) {
         this.title = builder.title;

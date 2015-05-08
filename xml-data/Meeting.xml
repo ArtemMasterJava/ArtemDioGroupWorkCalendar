@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<event>
+    <id>a902112c-588a-47db-bb59-614ef883e0ba</id>
+    <title>Meeting</title>
+    <description>Discuss new project design</description>
+    <startDate>2015-05-12T10:00:00+03:00</startDate>
+    <endDate>2015-05-12T11:00:00+03:00</endDate>
+    <attendees>
+        <person>
+            <firstName>John</firstName>
+            <lastName>Peters</lastName>
+            <email>peters@gmail.com</email>
+        </person>
+        <person>
+            <firstName>Mister</firstName>
+            <lastName>Snake</lastName>
+            <email>snake@yahoo.com</email>
+        </person>
+        <person>
+            <firstName>Mary</firstName>
+            <lastName>Smith</lastName>
+            <email>smith@outlook.com</email>
+        </person>
+    </attendees>
+</event>

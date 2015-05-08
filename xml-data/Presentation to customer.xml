@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<event>
+    <id>c480c71f-8a91-4680-914e-0dda8511a2f4</id>
+    <title>Presentation to customer</title>
+    <description>Presentation before realizing</description>
+    <startDate>2015-05-12T14:00:00+03:00</startDate>
+    <endDate>2015-05-12T16:30:00+03:00</endDate>
+    <attendees>
+        <person>
+            <firstName>Josef</firstName>
+            <lastName>Adams</lastName>
+            <email>adams@gmail.com</email>
+        </person>
+        <person>
+            <firstName>Mary</firstName>
+            <lastName>Smith</lastName>
+            <email>smith@outlook.com</email>
+        </person>
+    </attendees>
+</event>

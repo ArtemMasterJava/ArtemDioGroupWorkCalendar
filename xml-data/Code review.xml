@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<event>
+    <id>32940b7a-c059-484a-9c70-8e19af020285</id>
+    <title>Code review</title>
+    <description>Public review of juniors code</description>
+    <startDate>2015-05-12T11:15:00+03:00</startDate>
+    <endDate>2015-05-12T13:00:00+03:00</endDate>
+    <attendees>
+        <person>
+            <firstName>Alex</firstName>
+            <lastName>Black</lastName>
+            <email>black@gmail.com</email>
+        </person>
+        <person>
+            <firstName>Orlando</firstName>
+            <lastName>Johnson</lastName>
+            <email>johnson@yahoo.com</email>
+        </person>
+    </attendees>
+</event>
