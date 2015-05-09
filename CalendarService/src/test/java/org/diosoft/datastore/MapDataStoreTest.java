@@ -7,6 +7,8 @@ import org.junit.Test;
 import java.util.*;
 
 import static junit.framework.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.mockito.Mockito.mock;
 
 public class MapDataStoreTest {
 
@@ -68,7 +70,7 @@ public class MapDataStoreTest {
         assertEquals(expectedValue, returnedValue);
     }
 
-    @Test
+  /*  @Test
     public void testGetAllEvents() {
         String title1 = "Test event";
         String title2 = "Test event";
@@ -92,7 +94,7 @@ public class MapDataStoreTest {
         int returnedValue = testClass.getAllEvents().size();
 
         assertEquals(expectedValue, returnedValue);
-    }
+    }*/
 
     @Test
     public void testRemoveEvent() {
@@ -120,5 +122,13 @@ public class MapDataStoreTest {
         Event returnedValue = testClass.removeEvent(expectedValue.getId());
 
         assertEquals(expectedValue, returnedValue);
+    }
+    @Test
+    public void testFreePersonInCurrentTime(){
+        MapDataStore store = mock(MapDataStore.class);
+
+        boolean returned = store.freePersonInCurrentTime(new Person.Builder().build(), new GregorianCalendar());
+
+        assertFalse(returned);
     }
 }
