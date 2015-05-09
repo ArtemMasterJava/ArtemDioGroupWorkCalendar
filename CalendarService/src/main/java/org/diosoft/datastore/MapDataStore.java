@@ -2,6 +2,7 @@ package org.diosoft.datastore;
 
 import org.diosoft.adapters.EventAdapter;
 import org.diosoft.model.Event;
+import org.diosoft.model.Person;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -64,6 +65,22 @@ public class MapDataStore implements DataStore {
         }
         return resultList;
     }
+
+    @Override
+    public boolean freePersonInCurrentTime(Person person, GregorianCalendar time) {
+        boolean result = true;
+        for(Map.Entry<UUID, Event> entry : storage.entrySet()) {
+            Event value = entry.getValue();
+            for(Person personInStore : value.getAttendees()){
+                if(personInStore.getEmail().equals(person.getEmail()) && (value.getStartDate().getTimeInMillis() <= time.getTimeInMillis() && value.getEndDate().getTimeInMillis() >= time.getTimeInMillis())){
+                    result = false;
+                    break;
+                }
+            }
+        }
+        return result;
+    }
+
 
     private void writeEvent(Event event){
 

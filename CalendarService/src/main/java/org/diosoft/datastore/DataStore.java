@@ -1,6 +1,7 @@
 package org.diosoft.datastore;
 
 import org.diosoft.model.Event;
+import org.diosoft.model.Person;
 
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -17,4 +18,6 @@ public interface DataStore {
     Event removeEvent(UUID id);
 
     List<Event> getEventsByDate(GregorianCalendar date);
+
+    boolean freePersonInCurrentTime(Person person, GregorianCalendar time);
 }

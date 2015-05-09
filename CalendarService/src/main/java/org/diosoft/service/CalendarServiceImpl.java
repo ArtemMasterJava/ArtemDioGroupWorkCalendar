@@ -1,6 +1,7 @@
 package org.diosoft.service;
 
 import org.diosoft.datastore.DataStore;
+import org.diosoft.datastore.MapDataStore;
 import org.diosoft.model.Event;
 import org.diosoft.model.Person;
 
@@ -69,6 +70,11 @@ public class CalendarServiceImpl implements CalendarService {
     @Override
     public List<Event> getEventsByDate(GregorianCalendar date) {
         return dataStore.getEventsByDate(date);
+    }
+
+    @Override
+    public boolean freePersonInCurrentTime(Person person, GregorianCalendar time) {
+        return dataStore.freePersonInCurrentTime(person, time);
     }
 
 
