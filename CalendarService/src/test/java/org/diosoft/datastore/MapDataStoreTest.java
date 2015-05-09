@@ -10,6 +10,7 @@ import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.mockito.Mockito.mock;
 
+
 public class MapDataStoreTest {
 
     @Test
