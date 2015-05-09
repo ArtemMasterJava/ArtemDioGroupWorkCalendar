@@ -8,12 +8,12 @@ import java.util.List;
 import java.util.UUID;
 
 public class Event implements Serializable {
-    private final String title;
-    private final String description;
-    private final UUID id;
-    private final List<String> attendees;
-    private final GregorianCalendar startDate;
-    private final GregorianCalendar endDate;
+    final private String title;
+    final private String description;
+    final private UUID id;
+    final private List<Person> attendees;
+    final private GregorianCalendar startDate;
+    final private GregorianCalendar endDate;
 
     private Event(Builder builder) {
         this.title = builder.title;
@@ -36,7 +36,7 @@ public class Event implements Serializable {
         return id;
     }
 
-    public List<String> getAttendees() {
+    public List<Person> getAttendees() {
         return attendees;
     }
 
@@ -55,14 +55,13 @@ public class Event implements Serializable {
 
         Event event = (Event) o;
 
-        if (attendees != null ? !attendees.equals(event.attendees) : event.attendees != null) return false;
-        if (description != null ? !description.equals(event.description) : event.description != null) return false;
-        if (endDate != null ? !endDate.equals(event.endDate) : event.endDate != null) return false;
-        if (id != null ? !id.equals(event.id) : event.id != null) return false;
-        if (startDate != null ? !startDate.equals(event.startDate) : event.startDate != null) return false;
         if (title != null ? !title.equals(event.title) : event.title != null) return false;
+        if (description != null ? !description.equals(event.description) : event.description != null) return false;
+        if (id != null ? !id.equals(event.id) : event.id != null) return false;
+        if (attendees != null ? !attendees.equals(event.attendees) : event.attendees != null) return false;
+        if (startDate != null ? !startDate.equals(event.startDate) : event.startDate != null) return false;
+        return !(endDate != null ? !endDate.equals(event.endDate) : event.endDate != null);
 
-        return true;
     }
 
     @Override
@@ -78,13 +77,14 @@ public class Event implements Serializable {
 
     @Override
     public String toString() {
-        final StringBuffer sb = new StringBuffer("Event ").append("\n");
+        final StringBuilder sb = new StringBuilder("Event").append("\n");
         sb.append("title: ").append(title).append("\n");
         sb.append("description: ").append(description).append("\n");
         sb.append("id: ").append(id).append("\n");
+        sb.append("attendees: ").append(attendees).append("\n");
         sb.append("startDate: ").append(formatDate(startDate)).append("\n");
         sb.append("endDate: ").append(formatDate(endDate)).append("\n");
-        sb.append("attendees: ").append(attendees).append("\n");
+        sb.append("\n");
         return sb.toString();
     }
 
@@ -92,7 +92,7 @@ public class Event implements Serializable {
         private String title;
         private String description;
         private UUID id;
-        private List<String> attendees;
+        private List<Person> attendees;
         private GregorianCalendar startDate;
         private GregorianCalendar endDate;
 
@@ -123,7 +123,7 @@ public class Event implements Serializable {
             return this;
         }
 
-        public Builder attendees(List<String> value) {
+        public Builder attendees(List<Person> value) {
             this.attendees = value;
             return this;
         }

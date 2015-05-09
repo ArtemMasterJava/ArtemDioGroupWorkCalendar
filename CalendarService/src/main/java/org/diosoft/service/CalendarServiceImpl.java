@@ -2,12 +2,10 @@ package org.diosoft.service;
 
 import org.diosoft.datastore.DataStore;
 import org.diosoft.model.Event;
+import org.diosoft.model.Person;
 
 import java.rmi.RemoteException;
-import java.util.Arrays;
-import java.util.GregorianCalendar;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class CalendarServiceImpl implements CalendarService {
 
@@ -19,20 +17,34 @@ public class CalendarServiceImpl implements CalendarService {
 
     @Override
     public void addEvent(String title, String description, GregorianCalendar startDate, GregorianCalendar endDate,
-                         String[] attendees) throws RemoteException {
+                         List<Person> attendees) throws RemoteException {
         dataStore.addEvent(new Event.Builder()
                 .id(makeId())
                 .title(title)
                 .description(description)
                 .startDate(startDate)
                 .endDate(endDate)
-                .attendees(Arrays.asList(attendees))
+                .attendees(attendees)
                 .build());
     }
 
     @Override
     public Event getEvent(UUID id) throws RemoteException {
         return dataStore.getEvent(id);
+    }
+
+    @Override
+    public void addAllDayEvent(String title, String description, GregorianCalendar date, List<Person> attendees) throws RemoteException {
+        date.set(Calendar.HOUR, 0);
+        date.set(Calendar.MINUTE, 0);
+        date.set(Calendar.SECOND, 0);
+        GregorianCalendar gregorianCalendar = new GregorianCalendar();
+        gregorianCalendar.setTime(date.getTime());
+        gregorianCalendar.add(Calendar.HOUR, 23);
+        gregorianCalendar.add(Calendar.MINUTE, 59);
+        gregorianCalendar.add(Calendar.SECOND, 59);
+
+        addEvent(title,description, date, gregorianCalendar, attendees);
     }
 
     @Override
@@ -45,7 +57,19 @@ public class CalendarServiceImpl implements CalendarService {
         return dataStore.removeEvent(id);
     }
 
+    @Override
+    public List<Calendar[]> checkAvailability(List<Person> attendees) {
+        return null;
+    }
+
     public UUID makeId() {
         return UUID.randomUUID();
     }
+
+    @Override
+    public List<Event> getEventsByDate(GregorianCalendar date) {
+        return dataStore.getEventsByDate(date);
+    }
+
+
 }
