@@ -2,6 +2,7 @@ package org.diosoft.datastore;
 
 import org.diosoft.adapters.EventAdapter;
 import org.diosoft.model.Event;
+import org.diosoft.model.Person;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -40,8 +41,12 @@ public class MapDataStore implements DataStore {
         return event;
     }
 
-    //@Override
-    public List<Calendar[]> checkAvailability(String[] attendees) {
+    @Override
+    public List<Calendar[]> checkAvailability(List<Person> attendees) {
+
+
+
+
         return null;
     }
 

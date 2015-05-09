@@ -45,7 +45,7 @@ public class CalendarServiceImpl implements CalendarService {
 
     @Override
     public List<Calendar[]> checkAvailability(List<Person> attendees) {
-        return null;
+        return dataStore.checkAvailability(attendees);
     }
 
     public UUID makeId() {
