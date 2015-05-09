@@ -7,10 +7,10 @@ import org.diosoft.model.Person;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 
+import java.rmi.RemoteException;
 import java.util.*;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 public class CalendarServiceImplTest {
@@ -183,5 +183,13 @@ public class CalendarServiceImplTest {
         // assert return value
 
         // verify mock expectations
+    }
+    @Test
+    public void testFreePersonInCurrentTime() throws RemoteException {
+        CalendarService service = mock(CalendarServiceImpl.class);
+
+        boolean returned = service.freePersonInCurrentTime(new Person.Builder().build(), new GregorianCalendar());
+
+        assertFalse(returned);
     }
 }

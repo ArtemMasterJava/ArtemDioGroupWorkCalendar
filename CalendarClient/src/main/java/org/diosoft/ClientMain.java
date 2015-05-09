@@ -33,17 +33,23 @@ public class ClientMain {
                 new Person.Builder().firstName("Mary").lastName("Smith").email("smith@outlook.com").build()
         );
 
+        List<Person> attendees4 = Arrays.asList(
+                new Person.Builder().firstName("Andruha").lastName("Romanenko").email("Andruha@gmail.com").build(),
+                new Person.Builder().firstName("Anton").lastName("Smith").email("Anton@outlook.com").build()
+        );
+
         GregorianCalendar startDate1 = new GregorianCalendar(2015, Calendar.MAY, 12, 10, 0);
         GregorianCalendar endDate1 = new GregorianCalendar(2015, Calendar.MAY, 12, 11, 0);
         GregorianCalendar startDate2 = new GregorianCalendar(2015, Calendar.MAY, 12, 11, 15);
         GregorianCalendar endDate2 = new GregorianCalendar(2015, Calendar.MAY, 12, 13, 0);
         GregorianCalendar startDate3 = new GregorianCalendar(2015, Calendar.MAY, 12, 14, 0);
         GregorianCalendar endDate3 = new GregorianCalendar(2015, Calendar.MAY, 12, 16, 30);
+        GregorianCalendar date = new GregorianCalendar(2015 , Calendar.MAY, 12);
 
         service.addEvent("Meeting", "Discuss new project design", startDate1, endDate1, attendees1);
         service.addEvent("Code review", "Public review of juniors code", startDate2, endDate2, attendees2);
         service.addEvent("Presentation to customer", "Presentation before realizing", startDate3, endDate3, attendees3);
-
+        service.addAllDayEvent("All Day Event Title", "holly", date, attendees4);
         System.out.println(service.getAllEvents());
     }
 

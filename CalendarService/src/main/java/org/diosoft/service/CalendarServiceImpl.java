@@ -1,6 +1,7 @@
 package org.diosoft.service;
 
 import org.diosoft.datastore.DataStore;
+import org.diosoft.datastore.MapDataStore;
 import org.diosoft.model.Event;
 import org.diosoft.model.Person;
 
@@ -34,6 +35,20 @@ public class CalendarServiceImpl implements CalendarService {
     }
 
     @Override
+    public void addAllDayEvent(String title, String description, GregorianCalendar date, List<Person> attendees) throws RemoteException {
+        date.set(Calendar.HOUR, 0);
+        date.set(Calendar.MINUTE, 0);
+        date.set(Calendar.SECOND, 0);
+        GregorianCalendar gregorianCalendar = new GregorianCalendar();
+        gregorianCalendar.setTime(date.getTime());
+        gregorianCalendar.add(Calendar.HOUR, 23);
+        gregorianCalendar.add(Calendar.MINUTE, 59);
+        gregorianCalendar.add(Calendar.SECOND, 59);
+
+        addEvent(title,description, date, gregorianCalendar, attendees);
+    }
+
+    @Override
     public List<Event> getAllEvents() throws RemoteException {
         return dataStore.getAllEvents();
     }
@@ -55,6 +70,11 @@ public class CalendarServiceImpl implements CalendarService {
     @Override
     public List<Event> getEventsByDate(GregorianCalendar date) {
         return dataStore.getEventsByDate(date);
+    }
+
+    @Override
+    public boolean freePersonInCurrentTime(Person person, GregorianCalendar time) {
+        return dataStore.freePersonInCurrentTime(person, time);
     }
 
 
