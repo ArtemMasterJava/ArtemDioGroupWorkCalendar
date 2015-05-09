@@ -3,6 +3,7 @@ package org.diosoft.datastore;
 import org.diosoft.model.Event;
 import org.diosoft.model.Person;
 
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.UUID;
@@ -18,6 +19,8 @@ public interface DataStore {
     Event removeEvent(UUID id);
 
     List<Event> getEventsByDate(GregorianCalendar date);
+
+    public List<Calendar[]> checkAvailability(List<Person> attendees);
 
     boolean freePersonInCurrentTime(Person person, GregorianCalendar time);
 }

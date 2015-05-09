@@ -41,8 +41,12 @@ public class MapDataStore implements DataStore {
         return event;
     }
 
-    //@Override
-    public List<Calendar[]> checkAvailability(String[] attendees) {
+    @Override
+    public List<Calendar[]> checkAvailability(List<Person> attendees) {
+
+
+
+
         return null;
     }
 
