@@ -4,6 +4,9 @@ import org.diosoft.model.Event;
 import org.diosoft.model.Person;
 import org.junit.Test;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 
 import static junit.framework.Assert.assertEquals;
@@ -13,7 +16,6 @@ import static org.mockito.Mockito.when;
 
 public class MapDataStoreTest {
 
-    // this test is passed, but testing method throw FileNotFoundException
     @Test
     public void testAddEvent() throws Exception {
 
@@ -35,6 +37,9 @@ public class MapDataStoreTest {
                 .attendees(attendees)
                 .build();
 
+        Path dir = Paths.get("./xml-data");
+        if (Files.notExists(dir)) Files.createDirectory(dir);
+
         MapDataStore testClass = new MapDataStore();
 
         testClass.addEvent(expectedValue);
@@ -44,7 +49,7 @@ public class MapDataStoreTest {
     }
 
     @Test
-    public void testGetEvent() {
+    public void testGetEvent() throws Exception {
 
         String title = "Test event";
         String description = "Test description";
@@ -64,6 +69,9 @@ public class MapDataStoreTest {
                 .attendees(attendees)
                 .build();
 
+        Path dir = Paths.get("./xml-data");
+        if (Files.notExists(dir)) Files.createDirectory(dir);
+
         MapDataStore testClass = new MapDataStore();
 
         testClass.addEventForTest(expectedValue);
@@ -73,7 +81,7 @@ public class MapDataStoreTest {
     }
 
     @Test
-    public void testGetAllEvents() {
+    public void testGetAllEvents() throws Exception {
         String title1 = "Test event";
         String title2 = "Test event";
         UUID id1 = UUID.randomUUID();
@@ -87,6 +95,9 @@ public class MapDataStoreTest {
                 .id(id2)
                 .build();
 
+        Path dir = Paths.get("./xml-data");
+        if (Files.notExists(dir)) Files.createDirectory(dir);
+
         int expectedValue = 2;
 
         MapDataStore testClass = new MapDataStore();
@@ -99,7 +110,7 @@ public class MapDataStoreTest {
     }
 
     @Test
-    public void testRemoveEvent() {
+    public void testRemoveEvent() throws Exception {
         String title = "Test event";
         String description = "Test description";
         UUID id = UUID.randomUUID();
@@ -118,6 +129,9 @@ public class MapDataStoreTest {
                 .attendees(attendees)
                 .build();
 
+        Path dir = Paths.get("./xml-data");
+        if (Files.notExists(dir)) Files.createDirectory(dir);
+
         MapDataStore testClass = new MapDataStore();
 
         testClass.addEventForTest(expectedValue);
@@ -128,7 +142,7 @@ public class MapDataStoreTest {
 
     @Test
     //local code review (vtegza): ad more se cases @ 11.05.15
-    public void testCheckAvailability() {
+    public void testCheckAvailability() throws Exception {
 
         String title1 = "Meeting";
         String title2 = "Code review";
@@ -198,6 +212,9 @@ public class MapDataStoreTest {
                 .attendees(attendees3)
                 .build();
 
+        Path dir = Paths.get("./xml-data");
+        if (Files.notExists(dir)) Files.createDirectory(dir);
+
         List<Calendar[]> expectedValue = new ArrayList<>();
 
         // I need to use "mock" and "when" because tested method is current-time-dependant
@@ -212,6 +229,7 @@ public class MapDataStoreTest {
 
         assertEquals(expectedValue, returnedValue);
     }
+
     @Test
     public void testFreePersonInCurrentTime(){
         MapDataStore store = mock(MapDataStore.class);
@@ -219,5 +237,39 @@ public class MapDataStoreTest {
         boolean returned = store.freePersonInCurrentTime(new Person.Builder().build(), new GregorianCalendar());
 
         assertFalse(returned);
+    }
+
+    @Test
+    public void testUpdateEvent() throws Exception {
+
+        String title = "Meeting";
+        String description = "Test description";
+        UUID id = UUID.randomUUID();
+        GregorianCalendar startDate = new GregorianCalendar(2015, Calendar.MAY, 30, 10, 0);
+        GregorianCalendar endDate = new GregorianCalendar(2015, Calendar.MAY, 30, 12, 30);
+        List<Person> attendees = Arrays.asList(
+                new Person.Builder().firstName("John").lastName("Peters").email("peters@gmail.com").build(),
+                new Person.Builder().firstName("Mister").lastName("Snake").email("snake@yahoo.com").build()
+        );
+        Event tempValue = new Event.Builder()
+                .title(title)
+                .description(description)
+                .id(id)
+                .startDate(startDate)
+                .endDate(endDate)
+                .attendees(attendees)
+                .build();
+
+        Path dir = Paths.get("./xml-data");
+        if (Files.notExists(dir)) Files.createDirectory(dir);
+
+        Event expectedValue = new Event.Builder(tempValue).title("Another event title").build();
+
+        MapDataStore testClass = new MapDataStore();
+        testClass.addEventForTest(tempValue);
+        testClass.updateEvent(expectedValue);
+        Event returnedValue = testClass.getEventForTest(expectedValue.getId());
+
+        assertEquals(expectedValue, returnedValue);
     }
 }

@@ -8,7 +8,10 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import java.io.File;
-import java.text.SimpleDateFormat;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 
 public class MapDataStore implements DataStore {
@@ -39,6 +42,7 @@ public class MapDataStore implements DataStore {
     public Event removeEvent(UUID id) {
         Event event = storage.get(id);
         storage.remove(id);
+        removeEventFile(event);
         return event;
     }
 
@@ -137,6 +141,7 @@ public class MapDataStore implements DataStore {
 
     void addEventForTest(Event event) {
         storage.put(event.getId(), event);
+        writeEvent(event);
     }
 
     Event getEventForTest(UUID id) {
@@ -161,7 +166,9 @@ public class MapDataStore implements DataStore {
         for(Map.Entry<UUID, Event> entry : storage.entrySet()) {
             Event value = entry.getValue();
             for(Person personInStore : value.getAttendees()){
-                if(personInStore.getEmail().equals(person.getEmail()) && (value.getStartDate().getTimeInMillis() <= time.getTimeInMillis() && value.getEndDate().getTimeInMillis() >= time.getTimeInMillis())){
+                if (personInStore.getEmail().equals(person.getEmail()) &&
+                        (value.getStartDate().getTimeInMillis() <= time.getTimeInMillis() &&
+                                value.getEndDate().getTimeInMillis() >= time.getTimeInMillis())) {
                     result = false;
                     break;
                 }
@@ -170,6 +177,11 @@ public class MapDataStore implements DataStore {
         return result;
     }
 
+    @Override
+    public void updateEvent(Event event) {
+        removeEvent(event.getId());
+        addEvent(event);
+    }
 
     private void writeEvent(Event event){
 
@@ -180,24 +192,19 @@ public class MapDataStore implements DataStore {
             jaxbContext = JAXBContext.newInstance(EventAdapter.class);
             Marshaller m = jaxbContext.createMarshaller();
             m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-            m.marshal(eventAdapter, new File("./xml-data/"+ event.getTitle() +".xml"));
+            m.marshal(eventAdapter, new File("./xml-data/"+ event.getId() +".xml"));
         } catch (JAXBException e) {
             e.printStackTrace();
         }
     }
 
-    // internal needs method
-    private void printCalendarMap(Map<GregorianCalendar, GregorianCalendar> map) {
-        for (Map.Entry<GregorianCalendar, GregorianCalendar> entry : map.entrySet()) {
-            System.out.println("Key : " + entry.getKey().getTime()
-                    + " Value : " + entry.getValue().getTime());
+    private void removeEventFile(Event event){
+        Path path = Paths.get("./xml-data/" + event.getId() + ".xml");
+        try {
+            Files.delete(path);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-    }
 
-    // method to make output of toString method more pretty
-    public String formatDate(Calendar date) {
-        SimpleDateFormat sdf = new SimpleDateFormat();
-        sdf.applyPattern("dd.MM.yyyy HH:mm");
-        return sdf.format(date.getTime());
     }
 }

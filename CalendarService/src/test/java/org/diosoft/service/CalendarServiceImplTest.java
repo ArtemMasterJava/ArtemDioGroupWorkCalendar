@@ -192,4 +192,24 @@ public class CalendarServiceImplTest {
 
         assertFalse(returned);
     }
+
+    @Test
+    public void testUpdateEvent() throws Exception {
+
+        // initialize variable inputs
+        Event event = new Event.Builder().id(UUID.randomUUID()).build();
+
+        // initialize mocks
+        DataStore dataStore = mock(DataStore.class);
+        ArgumentCaptor<Event> argumentCaptor = ArgumentCaptor.forClass(Event.class);
+
+        // initialize class to test
+        CalendarService service = new CalendarServiceImpl(dataStore);
+
+        // invoke method on class to test
+        service.updateEvent(event);
+
+        // verify mock expectations
+        verify(dataStore).updateEvent(argumentCaptor.capture());
+    }
 }

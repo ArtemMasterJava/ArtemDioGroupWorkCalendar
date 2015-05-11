@@ -101,6 +101,11 @@ public class CalendarServiceImpl implements CalendarService {
         }
     }
 
+    @Override
+    public void updateEvent(Event event) throws RemoteException {
+        dataStore.updateEvent(event);
+    }
+
     //local code review (vtegza): read event with someinitMethd and than add them with regular add method @ 11.05.15
     private Event readEvent(String path) throws JAXBException {
 
@@ -131,7 +136,6 @@ public class CalendarServiceImpl implements CalendarService {
                 .build();
     }
 
-    //local code review (vtegza): test logic in visitor @ 11.05.15
     public class EventLoader
             extends SimpleFileVisitor<Path> {
 
