@@ -166,7 +166,7 @@ public class CalendarServiceImplTest {
         assertEquals(expectedValue, returnedValue);
 
         // verify mock expectations
-        verify(dataStore).getAllEvents();
+        verify(dataStore).checkAvailability(attendees);
     }
 
     @Test

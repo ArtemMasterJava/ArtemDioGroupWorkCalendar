@@ -20,7 +20,7 @@ public interface DataStore {
 
     List<Event> getEventsByDate(GregorianCalendar date);
 
-    public List<Calendar[]> checkAvailability(List<Person> attendees);
+    List<Calendar[]> checkAvailability(List<Person> attendees);
 
     boolean freePersonInCurrentTime(Person person, GregorianCalendar time);
 }
