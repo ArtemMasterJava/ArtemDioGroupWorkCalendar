@@ -12,6 +12,8 @@ public interface DataStore {
 
     void addEvent(Event event);
 
+    void addAllDayEvent(Event event);
+
     Event getEvent(UUID id);
 
     List<Event> getAllEvents();
