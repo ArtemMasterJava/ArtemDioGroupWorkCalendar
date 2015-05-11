@@ -9,6 +9,7 @@ import java.rmi.RemoteException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 public class ClientMain {
@@ -31,6 +32,12 @@ public class ClientMain {
         for (Calendar[] calendars : list) {
             System.out.println("start: " + formatDate(calendars[0])+ " end: " + formatDate(calendars[1]));
         }
+
+        GregorianCalendar date = new GregorianCalendar(2015, Calendar.MAY, 14);
+
+        service.addAllDayEvent("Test_All_Day", "Some Description", date, attendees);
+
+        System.out.println(service.getAllEvents());
     }
 
     public static String formatDate(Calendar date) {

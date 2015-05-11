@@ -99,6 +99,11 @@ public class CalendarServiceImpl implements CalendarService {
         }
     }
 
+    @Override
+    public void updateEvent(Event event) throws RemoteException {
+        dataStore.updateEvent(event);
+    }
+
     private Event readEvent(String path) throws JAXBException {
 
         File file = new File(path);

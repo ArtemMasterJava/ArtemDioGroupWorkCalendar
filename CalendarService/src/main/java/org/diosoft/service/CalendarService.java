@@ -32,4 +32,6 @@ public interface CalendarService extends Remote {
     boolean freePersonInCurrentTime(Person person, GregorianCalendar time) throws RemoteException;
 
     void fillStorage(Path path) throws RemoteException;
+
+    void updateEvent(Event event) throws RemoteException;
 }

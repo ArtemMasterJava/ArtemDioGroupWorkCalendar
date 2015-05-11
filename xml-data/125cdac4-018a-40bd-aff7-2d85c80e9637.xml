@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<event>
+    <id>125cdac4-018a-40bd-aff7-2d85c80e9637</id>
+    <title>All Day Event Title</title>
+    <description>holly</description>
+    <startDate>2015-05-14T00:00:00+03:00</startDate>
+    <endDate>2015-05-14T23:59:59+03:00</endDate>
+    <attendees>
+        <person>
+            <firstName>Andruha</firstName>
+            <lastName>Romanenko</lastName>
+            <email>Andruha@gmail.com</email>
+        </person>
+        <person>
+            <firstName>Anton</firstName>
+            <lastName>Smith</lastName>
+            <email>Anton@outlook.com</email>
+        </person>
+    </attendees>
+</event>
