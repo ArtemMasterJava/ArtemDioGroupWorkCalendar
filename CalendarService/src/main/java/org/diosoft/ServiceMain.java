@@ -18,6 +18,7 @@ public class ServiceMain {
         System.out.println("Loading data from file system...");
 
         Path path = Paths.get("./xml-data");
+        //local code review (vtegza): you can do this in spring config @ 11.05.15
         service.fillStorage(path);
 
         System.out.println(" Done!");

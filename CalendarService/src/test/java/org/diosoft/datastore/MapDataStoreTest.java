@@ -127,6 +127,7 @@ public class MapDataStoreTest {
     }
 
     @Test
+    //local code review (vtegza): ad more se cases @ 11.05.15
     public void testCheckAvailability() {
 
         String title1 = "Meeting";

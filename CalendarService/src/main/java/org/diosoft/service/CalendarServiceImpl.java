@@ -21,6 +21,8 @@ import static java.nio.file.FileVisitResult.CONTINUE;
 public class CalendarServiceImpl implements CalendarService {
 
     private final DataStore dataStore;
+    //local code review (vtegza): should be private final @ 11.05.15
+    //local code review (vtegza): inject from container @ 11.05.15
     EventLoader loader;
 
     public CalendarServiceImpl (DataStore dataStore) {
@@ -99,6 +101,7 @@ public class CalendarServiceImpl implements CalendarService {
         }
     }
 
+    //local code review (vtegza): read event with someinitMethd and than add them with regular add method @ 11.05.15
     private Event readEvent(String path) throws JAXBException {
 
         File file = new File(path);
@@ -128,6 +131,7 @@ public class CalendarServiceImpl implements CalendarService {
                 .build();
     }
 
+    //local code review (vtegza): test logic in visitor @ 11.05.15
     public class EventLoader
             extends SimpleFileVisitor<Path> {
 
@@ -135,6 +139,7 @@ public class CalendarServiceImpl implements CalendarService {
         @Override
         public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) {
             try {
+                //local code review (vtegza): call unmarshling here @ 11.05.15
                 dataStore.addEvent(readEvent(file.toString()));
             } catch (JAXBException e) {
                 e.printStackTrace();
