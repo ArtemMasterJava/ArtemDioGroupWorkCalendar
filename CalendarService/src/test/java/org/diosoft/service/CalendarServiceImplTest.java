@@ -82,7 +82,7 @@ public class CalendarServiceImplTest {
     }
 
     @Test
-    public void testGetAllEvents() throws Exception {
+    public void testSetAllEvents() throws Exception {
 
         // initialize variable inputs
         List<Event> expectedValue = new ArrayList<Event>();
@@ -143,7 +143,7 @@ public class CalendarServiceImplTest {
     @Test
     public void testCheckAvailability() throws Exception {
 
-        //List<Calendar[]> checkAvailability(Person… persons)
+        //List<Calendar[]> checkAvailability(Personï¿½ persons)
 
         // initialize variable inputs
         List<Calendar[]> expectedValue = new ArrayList<Calendar[]>();
@@ -169,6 +169,7 @@ public class CalendarServiceImplTest {
         verify(dataStore).checkAvailability(attendees);
     }
 
+
     @Test
     public void mockTestExample() {
 
@@ -192,4 +193,31 @@ public class CalendarServiceImplTest {
 
         assertFalse(returned);
     }
+
+    @Test
+    public void testaddAllDayEvent() throws Exception {
+
+        // initialize variable inputs
+        String title = "Test Event";
+        String description = "Some Description";
+        GregorianCalendar date = new GregorianCalendar(2015, Calendar.MAY, 15);
+        List<Person> attendees = Arrays.asList(
+                new Person.Builder().firstName("John").lastName("Peters").email("peters@gmail.com").build(),
+                new Person.Builder().firstName("Mister").lastName("Snake").email("snake@yahoo.com").build()
+        );
+        Event event = new Event.Builder().build();
+        // initialize mocks
+        DataStore dataStore = mock(DataStore.class);
+        ArgumentCaptor<Event> argumentCaptor = ArgumentCaptor.forClass(Event.class);
+
+        // initialize class to test
+        CalendarService service = new CalendarServiceImpl(dataStore);
+
+        // invoke method on class to test
+        service.addAllDayEvent(title, description, date, attendees);
+
+        // verify mock expectations
+        verify(dataStore).addEvent(argumentCaptor.capture());
+    }
+
 }

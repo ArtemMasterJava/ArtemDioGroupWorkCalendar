@@ -28,6 +28,12 @@ public class MapDataStore implements DataStore {
     }
 
     @Override
+    public void addAllDayEvent(Event event) {
+        storage.put(event.getId(), event);
+        writeEvent(event);
+    }
+
+    @Override
     public Event getEvent(UUID id) {
         return storage.get(id);
     }
