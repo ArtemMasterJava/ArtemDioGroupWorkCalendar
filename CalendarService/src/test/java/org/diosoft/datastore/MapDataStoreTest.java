@@ -7,8 +7,6 @@ import org.junit.Test;
 import java.util.*;
 
 import static junit.framework.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 public class MapDataStoreTest {
 
@@ -209,5 +207,13 @@ public class MapDataStoreTest {
         List<Calendar[]> returnedValue = testClass.checkAvailability(testingAttendees);
 
         assertEquals(expectedValue, returnedValue);
+    }
+    @Test
+    public void testFreePersonInCurrentTime(){
+        MapDataStore store = mock(MapDataStore.class);
+
+        boolean returned = store.freePersonInCurrentTime(new Person.Builder().build(), new GregorianCalendar());
+
+        assertFalse(returned);
     }
 }
