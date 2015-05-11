@@ -2,17 +2,13 @@ package org.diosoft.datastore;
 
 import org.diosoft.model.Event;
 import org.diosoft.model.Person;
-import org.diosoft.service.CalendarService;
-import org.diosoft.service.CalendarServiceImpl;
 import org.junit.Test;
-import org.mockito.ArgumentCaptor;
 
 import java.util.*;
 
 import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
 
 
 public class MapDataStoreTest {
@@ -45,34 +41,6 @@ public class MapDataStoreTest {
 
         assertEquals(expectedValue, returnedValue);
     }
-
-
-    @Test
-    public void testaddAllDayEvent() throws Exception {
-
-        // initialize variable inputs
-        String title = "Test Event";
-        String description = "Some Description";
-        GregorianCalendar date = new GregorianCalendar(2015, Calendar.MAY, 15);
-        List<Person> attendees = Arrays.asList(
-                new Person.Builder().firstName("John").lastName("Peters").email("peters@gmail.com").build(),
-                new Person.Builder().firstName("Mister").lastName("Snake").email("snake@yahoo.com").build()
-        );
-        Event event = new Event.Builder().build();
-        // initialize mocks
-        DataStore dataStore = mock(DataStore.class);
-        ArgumentCaptor<Event> argumentCaptor = ArgumentCaptor.forClass(Event.class);
-
-        // initialize class to test
-        CalendarService service = new CalendarServiceImpl(dataStore);
-
-        // invoke method on class to test
-        service.addAllDayEvent(title, description, date, attendees);
-
-        // verify mock expectations
-        verify(dataStore).addEvent(argumentCaptor.capture());
-    }
-
 
     @Test
     public void testGetEvent() {

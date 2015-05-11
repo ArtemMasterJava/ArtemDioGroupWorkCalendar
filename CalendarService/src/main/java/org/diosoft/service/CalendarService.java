@@ -28,5 +28,5 @@ public interface CalendarService extends Remote {
 
     List<Event> getEventsByDate(GregorianCalendar date) throws RemoteException;
 
-    boolean freePersonInCurrentTime(Person person, GregorianCalendar time);
+    boolean freePersonInCurrentTime(Person person, GregorianCalendar time) throws RemoteException;
 }
