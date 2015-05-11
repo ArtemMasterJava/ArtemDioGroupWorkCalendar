@@ -1,19 +1,31 @@
 package org.diosoft.service;
 
+import org.diosoft.adapters.EventAdapter;
+import org.diosoft.adapters.PersonAdapter;
 import org.diosoft.datastore.DataStore;
-import org.diosoft.datastore.MapDataStore;
 import org.diosoft.model.Event;
 import org.diosoft.model.Person;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.*;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.rmi.RemoteException;
 import java.util.*;
+
+import static java.nio.file.FileVisitResult.CONTINUE;
 
 public class CalendarServiceImpl implements CalendarService {
 
     private final DataStore dataStore;
+    EventLoader loader;
 
     public CalendarServiceImpl (DataStore dataStore) {
         this.dataStore = dataStore;
+        loader = new EventLoader();
     }
 
     @Override
@@ -77,5 +89,57 @@ public class CalendarServiceImpl implements CalendarService {
         return dataStore.freePersonInCurrentTime(person, time);
     }
 
+    @Override
+    public void fillStorage(Path path) throws RemoteException {
 
+        try {
+            Files.walkFileTree(path, loader);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private Event readEvent(String path) throws JAXBException {
+
+        File file = new File(path);
+        JAXBContext jaxbContext = JAXBContext.newInstance(EventAdapter.class);
+        Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+        EventAdapter eventAdapter = (EventAdapter) jaxbUnmarshaller.unmarshal(file);
+
+        List<Person> attendees = new ArrayList<>();
+        if (eventAdapter.getAttendees() != null ) {
+            for (PersonAdapter pa : eventAdapter.getAttendees()) {
+                Person person = new Person.Builder()
+                        .firstName(pa.getFirstName())
+                        .lastName(pa.getLastName())
+                        .email(pa.getEmail())
+                        .build();
+                attendees.add(person);
+            }
+        }
+
+        return new Event.Builder()
+                .id(eventAdapter.getId())
+                .title(eventAdapter.getTitle())
+                .description(eventAdapter.getDescription())
+                .startDate(eventAdapter.getStartDate())
+                .endDate(eventAdapter.getEndDate())
+                .attendees(attendees)
+                .build();
+    }
+
+    public class EventLoader
+            extends SimpleFileVisitor<Path> {
+
+        // Invoke JAXB for the each file and add result to storage
+        @Override
+        public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) {
+            try {
+                dataStore.addEvent(readEvent(file.toString()));
+            } catch (JAXBException e) {
+                e.printStackTrace();
+            }
+            return CONTINUE;
+        }
+    }
 }

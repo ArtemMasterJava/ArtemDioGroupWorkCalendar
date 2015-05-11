@@ -3,6 +3,7 @@ package org.diosoft.service;
 import org.diosoft.model.Event;
 import org.diosoft.model.Person;
 
+import java.nio.file.Path;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.Calendar;
@@ -29,4 +30,6 @@ public interface CalendarService extends Remote {
     List<Event> getEventsByDate(GregorianCalendar date) throws RemoteException;
 
     boolean freePersonInCurrentTime(Person person, GregorianCalendar time) throws RemoteException;
+
+    void fillStorage(Path path) throws RemoteException;
 }
