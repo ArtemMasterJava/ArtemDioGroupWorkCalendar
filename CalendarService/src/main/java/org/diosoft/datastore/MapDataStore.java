@@ -10,8 +10,6 @@ import javax.xml.bind.Unmarshaller;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.*;
-
-import static javax.xml.ws.Endpoint.publish;
 import static org.slf4j.MDC.remove;
 
 public class MapDataStore implements DataStore {
