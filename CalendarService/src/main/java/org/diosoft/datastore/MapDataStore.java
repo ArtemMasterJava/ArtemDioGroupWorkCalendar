@@ -3,13 +3,16 @@ package org.diosoft.datastore;
 import org.diosoft.adapters.EventAdapter;
 import org.diosoft.model.Event;
 import org.diosoft.model.Person;
-
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.*;
+
+import static javax.xml.ws.Endpoint.publish;
+import static org.slf4j.MDC.remove;
 
 public class MapDataStore implements DataStore {
 
@@ -18,6 +21,7 @@ public class MapDataStore implements DataStore {
     public MapDataStore() {
         this.storage  = new HashMap<UUID, Event>();
     }
+
 
     @Override
     public void addEvent(Event event) {
@@ -169,6 +173,35 @@ public class MapDataStore implements DataStore {
         }
         return result;
     }
+
+    @Override
+    public Event addAttenders(String title, List<Person> attenders) {
+            Event newEvent = null;
+            try{
+                File file = new File("D:\\" + title + ".xml");
+                JAXBContext jaxbContext = JAXBContext.newInstance(EventAdapter.class);
+                Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+                newEvent = (Event) unmarshaller.unmarshal(file);
+                remove(title);
+            }catch (JAXBException e){
+                e.printStackTrace();
+            }
+
+            Event event = new Event.Builder()
+                    .title(newEvent.getTitle())
+                    .description(newEvent.getDescription())
+                    .id(newEvent.getId())
+                    .attendees(attenders)
+                    .startDate(newEvent.getStartDate())
+                    .endDate(newEvent.getEndDate())
+                    .build();
+
+            addEvent(event);
+
+            return event;
+    }
+
+
 
 
     private void writeEvent(Event event){
