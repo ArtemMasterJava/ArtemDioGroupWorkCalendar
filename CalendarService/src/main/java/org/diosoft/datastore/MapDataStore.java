@@ -14,6 +14,7 @@ import static org.slf4j.MDC.remove;
 
 public class MapDataStore implements DataStore {
 
+    //local code review (vtegza): could be final @ 11.05.15
     private Map<UUID, Event> storage;
 
     public MapDataStore() {
@@ -53,6 +54,8 @@ public class MapDataStore implements DataStore {
     // this method return list of free periods for specified attendees
     // from right now to end of current week
     @Override
+    //local code review (vtegza): extract methods, keep your code readable especially key methods @ 11.05.15
+    //local code review (vtegza): move most of the logic to service layer - data/repository should be simple @ 11.05.15
     public List<Calendar[]> checkAvailability(List<Person> attendees) {
 
         // get events for specified attendees
@@ -68,7 +71,7 @@ public class MapDataStore implements DataStore {
         }
 
         Calendar date = Calendar.getInstance();
-
+        //local code review (vtegza): every comment is some logical part - extract those parts to comments @ 11.05.15
         // right now moment in milliseconds:
         long periodStart = date.getTimeInMillis();
 
@@ -164,6 +167,7 @@ public class MapDataStore implements DataStore {
     }
 
     @Override
+    //local code review (vtegza): keep most of the logic in service layer @ 11.05.15
     public boolean freePersonInCurrentTime(Person person, GregorianCalendar time) {
         boolean result = true;
         for(Map.Entry<UUID, Event> entry : storage.entrySet()) {
@@ -181,6 +185,7 @@ public class MapDataStore implements DataStore {
     @Override
     public Event addAttenders(String title, List<Person> attenders) {
             Event newEvent = null;
+            //local code review (vtegza): extract method for persistance part @ 11.05.15
             try{
                 File file = new File("D:\\" + title + ".xml");
                 JAXBContext jaxbContext = JAXBContext.newInstance(EventAdapter.class);

@@ -1,12 +1,14 @@
 package org.diosoft.service;
 
 import org.diosoft.datastore.DataStore;
-import org.diosoft.datastore.MapDataStore;
 import org.diosoft.model.Event;
 import org.diosoft.model.Person;
 
 import java.rmi.RemoteException;
-import java.util.*;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.UUID;
 
 public class CalendarServiceImpl implements CalendarService {
 
@@ -58,13 +60,14 @@ public class CalendarServiceImpl implements CalendarService {
         return dataStore.removeEvent(id);
     }
 
-    @Override
-    public List<Calendar[]> checkAvailability(List<Person> attendees) {
-        return dataStore.checkAvailability(attendees);
-    }
-
     public UUID makeId() {
         return UUID.randomUUID();
+    }
+
+    @Override
+    //local code review (vtegza): move most of the logic to service layer - data/repository should be simple @ 11.05.15
+    public List<Calendar[]> checkAvailability(List<Person> attendees) {
+        return dataStore.checkAvailability(attendees);
     }
 
     @Override

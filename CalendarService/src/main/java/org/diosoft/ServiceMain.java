@@ -12,6 +12,7 @@ public class ServiceMain {
 
         ApplicationContext context = new ClassPathXmlApplicationContext("serviceApplicationContext.xml");
         System.out.println("Calendar Service is running...");
+        //local code review (vtegza): use registerShutdownHook @ 11.05.15
     }
 
 
