@@ -1,12 +1,14 @@
 package org.diosoft.service;
 
 import org.diosoft.datastore.DataStore;
-import org.diosoft.datastore.MapDataStore;
 import org.diosoft.model.Event;
 import org.diosoft.model.Person;
 
 import java.rmi.RemoteException;
-import java.util.*;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.UUID;
 
 public class CalendarServiceImpl implements CalendarService {
 
@@ -34,18 +36,30 @@ public class CalendarServiceImpl implements CalendarService {
         return dataStore.getEvent(id);
     }
 
-    @Override
+  /*  @Override
     public void addAllDayEvent(String title, String description, GregorianCalendar date, List<Person> attendees) throws RemoteException {
-        date.set(Calendar.HOUR, 0);
-        date.set(Calendar.MINUTE, 0);
-        date.set(Calendar.SECOND, 0);
-        GregorianCalendar gregorianCalendar = new GregorianCalendar();
-        gregorianCalendar.setTime(date.getTime());
-        gregorianCalendar.add(Calendar.HOUR, 23);
-        gregorianCalendar.add(Calendar.MINUTE, 59);
-        gregorianCalendar.add(Calendar.SECOND, 59);
+        dataStore.addAllDayEvent(new Event.Builder()
+                .id(makeId())
+                .title(title)
+                .description(description)
+                .startDate(GregorianCalendar.HOUR(0))
+                .endDate(GregorianCalendar.HOUR(23))
+                .attendees(attendees)
+                .build());
+    }
+*/
+       @Override
+  public void addAllDayEvent(String title, String description, GregorianCalendar date, List<Person> attendees) throws RemoteException {
+      date.set(Calendar.HOUR, 0);
+      date.set(Calendar.MINUTE, 0);
+      date.set(Calendar.SECOND, 0);
+      GregorianCalendar gregorianCalendar = new GregorianCalendar();
+      gregorianCalendar.setTime(date.getTime());
+      gregorianCalendar.add(Calendar.HOUR, 23);
+      gregorianCalendar.add(Calendar.MINUTE, 59);
+      gregorianCalendar.add(Calendar.SECOND, 59);
 
-        addEvent(title,description, date, gregorianCalendar, attendees);
+
     }
 
     @Override
