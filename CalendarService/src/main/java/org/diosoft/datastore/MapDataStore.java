@@ -3,7 +3,6 @@ package org.diosoft.datastore;
 import org.diosoft.adapters.EventAdapter;
 import org.diosoft.model.Event;
 import org.diosoft.model.Person;
-
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -11,6 +10,9 @@ import javax.xml.bind.Unmarshaller;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.*;
+
+import static javax.xml.ws.Endpoint.publish;
+import static org.slf4j.MDC.remove;
 
 public class MapDataStore implements DataStore {
 
@@ -23,6 +25,12 @@ public class MapDataStore implements DataStore {
 
     @Override
     public void addEvent(Event event) {
+        storage.put(event.getId(), event);
+        writeEvent(event);
+    }
+
+    @Override
+    public void addAllDayEvent(Event event) {
         storage.put(event.getId(), event);
         writeEvent(event);
     }
@@ -172,7 +180,7 @@ public class MapDataStore implements DataStore {
         return result;
     }
 
-   @Override
+    @Override
     public Event addAttenders(String title, List<Person> attenders) {
             Event newEvent = null;
             try{

@@ -72,13 +72,14 @@ public class CalendarServiceImpl implements CalendarService {
         return dataStore.removeEvent(id);
     }
 
-    @Override
-    public List<Calendar[]> checkAvailability(List<Person> attendees) {
-        return dataStore.checkAvailability(attendees);
-    }
-
     public UUID makeId() {
         return UUID.randomUUID();
+    }
+
+    @Override
+    //local code review (vtegza): move most of the logic to service layer - data/repository should be simple @ 11.05.15
+    public List<Calendar[]> checkAvailability(List<Person> attendees) {
+        return dataStore.checkAvailability(attendees);
     }
 
     @Override

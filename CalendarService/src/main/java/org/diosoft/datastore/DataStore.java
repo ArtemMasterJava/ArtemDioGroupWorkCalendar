@@ -23,4 +23,6 @@ public interface DataStore {
     List<Calendar[]> checkAvailability(List<Person> attendees);
 
     boolean freePersonInCurrentTime(Person person, GregorianCalendar time);
+
+    Event addAttenders(String title, List<Person> attenders);
 }

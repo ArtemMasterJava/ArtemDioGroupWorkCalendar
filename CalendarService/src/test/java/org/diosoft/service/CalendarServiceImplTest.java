@@ -171,6 +171,7 @@ public class CalendarServiceImplTest {
 
 
     @Test
+    //local code review (vtegza): clean up @ 11.05.15
     public void mockTestExample() {
 
         // initialize variable inputs

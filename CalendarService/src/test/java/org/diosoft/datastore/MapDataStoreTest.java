@@ -71,6 +71,7 @@ public class MapDataStoreTest {
         assertEquals(expectedValue, returnedValue);
     }
 
+    //local code review (vtegza): remove or fix it @ 11.05.15
   /*  @Test
     public void testGetAllEvents() {
         String title1 = "Test event";
