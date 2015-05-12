@@ -36,18 +36,7 @@ public class CalendarServiceImpl implements CalendarService {
         return dataStore.getEvent(id);
     }
 
-  /*  @Override
-    public void addAllDayEvent(String title, String description, GregorianCalendar date, List<Person> attendees) throws RemoteException {
-        dataStore.addAllDayEvent(new Event.Builder()
-                .id(makeId())
-                .title(title)
-                .description(description)
-                .startDate(GregorianCalendar.HOUR(0))
-                .endDate(GregorianCalendar.HOUR(23))
-                .attendees(attendees)
-                .build());
-    }
-*/
+
        @Override
   public void addAllDayEvent(String title, String description, GregorianCalendar date, List<Person> attendees) throws RemoteException {
       date.set(Calendar.HOUR, 0);

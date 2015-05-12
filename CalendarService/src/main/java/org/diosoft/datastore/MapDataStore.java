@@ -3,6 +3,7 @@ package org.diosoft.datastore;
 import org.diosoft.adapters.EventAdapter;
 import org.diosoft.model.Event;
 import org.diosoft.model.Person;
+
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -11,7 +12,6 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import static javax.xml.ws.Endpoint.publish;
 import static org.slf4j.MDC.remove;
 
 public class MapDataStore implements DataStore {
@@ -34,6 +34,7 @@ public class MapDataStore implements DataStore {
         storage.put(event.getId(), event);
         writeEvent(event);
     }
+
 
     @Override
     public Event getEvent(UUID id) {

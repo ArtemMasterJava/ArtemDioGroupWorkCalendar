@@ -56,7 +56,9 @@ public class ClientMain {
         List<Person> attendees = Arrays.asList(
                 new Person.Builder().firstName("John").lastName("Peters").email("peters@gmail.com").build(),
                 new Person.Builder().firstName("Alex").lastName("Black").email("black@gmail.com").build(),
-                new Person.Builder().firstName("Mary").lastName("Smith").email("smith@outlook.com").build()
+                new Person.Builder().firstName("Mary").lastName("Smith").email("smith@outlook.com").build(),
+                new Person.Builder().firstName("Andruha").lastName("Romanenko").email("romanenko@gmail.com").build(),
+                new Person.Builder().firstName("Anton").lastName("Smith").email("smith@gmail.com").build()
         );
 
         List<Calendar[]> list = service.checkAvailability(attendees);
